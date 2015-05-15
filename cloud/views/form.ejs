@@ -5,19 +5,22 @@
 <body>
 <h1>Pebble Settings Service</h1>
 <h3>Developed by Robin Kam</h3>
-<p>App Name: <%= app %>></p>
-<p>Device ID: <%= device %>></p>
-<form action="form">
+<p>App Name: <%= appName %></p>
+<p>Device ID: <%= deviceID %></p>
+<form action="form" method="get">
     <table>
-        <tr><td>股票代码1：<input type="text" name="stockCode1" value="<%= settings.stockCode1 %>"></td></tr>
-        <tr><td>股票代码2：<input type="text" name="stockCode2" value="<%= settings.stockCode2 %>"></td></tr>
+        <tr><td>股票代码1：<input type="text" name="stockCode1" value="<%= stockCode1 %>"></td></tr>
+        <tr><td>股票代码2：<input type="text" name="stockCode2" value="<%= stockCode2 %>"></td></tr>
     </table>
+    <input type="hidden" name="appName" value="<%= appName %>">
+    <input type="hidden" name="deviceID" value="<%= deviceID %>">
     <input type="submit">
 </form>
 <script>
-    if(<%= shouldClose %>) {
-        var options = <%= options %>;
-        document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
+    if("<%= shouldClose %>"=="true") {
+        document.write('prepare to close the settings page...');
+        //document.write('<p>pebblejs://close#'+'<%= settingsData %></p>');
+        document.location = 'pebblejs://close#' + '<%= settingsData %>';
     }
 </script>
 </body>

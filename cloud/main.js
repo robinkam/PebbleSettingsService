@@ -9,13 +9,13 @@ AV.Cloud.define("getSettings", function(request, response) {
   console.log('request.params');
   console.dir(request.params);
   var query = new AV.Query('Settings');
-  query.equalTo('appName', request.params.app);
-  query.equalTo('deviceID', request.params.device);
+  query.equalTo('appName', request.params.appName);
+  query.equalTo('deviceID', request.params.deviceID);
   query.find({
     success: function(results) {
       var result = {};
       if(results.length>0){
-        result = results[i].get('settingsData');
+        result = results[0].get('settingsData');
       }
       response.success(result);
     },
@@ -29,9 +29,9 @@ AV.Cloud.define("saveSettings", function(request, response) {
   console.log('request.params');
   console.dir(request.params);
   var settings = new AV.Object("Settings");
-  settings.set("appName", request.params.app);
-  settings.set("deviceID", request.params.device);
-  settings.set("settingsData", request.params.settings);
+  settings.set("appName", request.params.appName);
+  settings.set("deviceID", request.params.deviceID);
+  settings.set("settingsData", request.params.settingsData);
   settings.save().then(function() {
     response.success(request.params.settings);
   }, function(error) {
