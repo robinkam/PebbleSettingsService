@@ -1,28 +1,36 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <title>Pebble Settings</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
-<body>
-<h1>Pebble Settings Service</h1>
-<p>Developed by Robin Kam</p>
-<p>App Name: <%= appName %></p>
-<p>Device ID: <%= deviceID %></p>
-<p>说明: 上海证券的股票代码前加“sh”，如“sh600000”；深圳证券的股票代码前加“sz”，如“sz000001”。</p>
-<form action="form" method="get">
-    <table>
-        <tr><td>股票代码1：<input type="text" name="stockCode1" value="<%= stockCode1 %>"></td></tr>
-        <tr><td>股票代码2：<input type="text" name="stockCode2" value="<%= stockCode2 %>"></td></tr>
-    </table>
-    <input type="hidden" name="appName" value="<%= appName %>">
-    <input type="hidden" name="deviceID" value="<%= deviceID %>">
-    <input type="submit">
-</form>
-<script>
-    if("<%= shouldClose %>"=="true") {
-        document.write('prepare to close the settings page...');
-        //document.write('<p>pebblejs://close#'+'<%= settingsData %></p>');
-        document.location = 'pebblejs://close#' + '<%= settingsData %>';
-    }
-</script>
+<body data-role="page">
+    <div data-role="header"><h1>Pebble Settings</h1></div>
+    <div role="main" class="ui-content">
+        <p>App Name: <%= appName %></p>
+        <p>Device ID: <%= deviceID %></p>
+        <p>说明: 上海证券的股票代码前加“sh”，如“sh600000”；深圳证券的股票代码前加“sz”，如“sz000001”。</p>
+        <form action="form" method="get">
+            <table>
+                <tr><td>股票代码1：<input type="text" name="stockCode1" value="<%= stockCode1 %>"></td></tr>
+                <tr><td>股票代码2：<input type="text" name="stockCode2" value="<%= stockCode2 %>"></td></tr>
+            </table>
+            <input type="hidden" name="appName" value="<%= appName %>">
+            <input type="hidden" name="deviceID" value="<%= deviceID %>">
+            <input type="submit" value="保存">
+        </form>
+        <script>
+            if("<%= shouldClose %>"=="true") {
+                document.write('prepare to close the settings page...');
+                //document.write('<p>pebblejs://close#'+'<%= settingsData %></p>');
+                document.location = 'pebblejs://close#' + '<%= settingsData %>';
+            }
+        </script>
+    </div>
+    <div data-role="footer"><h4>Developed by Robin Kam</h4></div>
 </body>
 </html>

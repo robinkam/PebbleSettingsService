@@ -1,16 +1,24 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <title>Pebble Settings</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
-<body>
-<h1>ChinaStock Settings</h1>
-<h3>Developed by Robin Kam</h3>
-<form>
-    <table>
-        <tr><td>股票代码1：<input type="text" name="stockCode" value="600000"></td></tr>
-        <tr><td>股票代码2：<input type="text" name="stockCode" value="600004"></td></tr>
-    </table>
-    <input type="submit">
-</form>
+<body data-role="page">
+    <div data-role="header"><h1>Pebble Settings</h1></div>
+    <div role="main" class="ui-content">
+        <form>
+            <table>
+                <tr><td>股票代码1：<input type="text" name="stockCode" value="600000"></td></tr>
+                <tr><td>股票代码2：<input type="text" name="stockCode" value="600004"></td></tr>
+            </table>
+            <input type="submit" value="保存">
+        </form>
+    </div>
+    <div data-role="footer"><h4>Developed by Robin Kam</h4></div>
 </body>
 </html>
