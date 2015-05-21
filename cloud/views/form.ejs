@@ -12,12 +12,13 @@
     <div data-role="header"><h1>Pebble Settings</h1></div>
     <div role="main" class="ui-content">
         <p>App Name: <%= appName %></p>
-        <p>Device ID: <%= deviceID %></p>
+        <!--<p>Device ID: <%= deviceID %></p>-->
         <p>说明: 上海证券的股票代码前加“sh”，如“sh600000”；深圳证券的股票代码前加“sz”，如“sz000001”。</p>
-        <form action="form" method="get">
+        <p>如果是指数，请在代码前加上“s_”，比如上证指数的代码为“s_sh000001”，深圳成指的代码为“s_sz399001”</p>
+        <form action="form" method="post">
             <table>
-                <tr><td>股票代码1：<input type="text" name="stockCode1" value="<%= stockCode1 %>"></td></tr>
-                <tr><td>股票代码2：<input type="text" name="stockCode2" value="<%= stockCode2 %>"></td></tr>
+                <tr><td>股票代码1：<input type="text" name="stockCode" value="<%= stockCodes[0] %>"></td></tr>
+                <tr><td>股票代码2：<input type="text" name="stockCode" value="<%= stockCodes[1] %>"></td></tr>
             </table>
             <input type="hidden" name="appName" value="<%= appName %>">
             <input type="hidden" name="deviceID" value="<%= deviceID %>">
@@ -30,6 +31,9 @@
                 document.location = 'pebblejs://close#' + '<%= settingsData %>';
             }
         </script>
+        <br><br>
+        <a href="mailto:robinkam008@qq.com">欢迎给我写邮件，反馈需求和问题。</a>
+        <p>下面是我的支付宝捐款二维码，欢迎向我捐款，支持我把应用做得更好，谢谢！</p>
         <img src="images/RobinDonateQR.png" alt="我的支付宝捐款二维码，欢迎向我捐款，支持我把应用做得更好，谢谢！">
     </div>
     <div data-role="footer"><h4>Developed by Robin Kam</h4></div>
