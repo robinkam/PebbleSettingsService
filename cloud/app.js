@@ -11,15 +11,11 @@ app.use(express.bodyParser());    // 读取请求 body 的中间件
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/hello', function(req, res) {
-  var stockCodes = req.query.stockCode;
-  var array = new Array(2);
-  console.dir(stockCodes);
-  console.dir(array[0]);
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
 app.get('/form', function(req, res) {
-  const NumberOfStockCodes = 2;
+  const NumberOfStockCodes = 5;
   var formModel = {
     appName: req.query.appName,
     deviceID: req.query.deviceID,
