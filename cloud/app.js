@@ -65,9 +65,9 @@ app.get('/form', function(req, res) {
     shouldClose: false
   };
   for(var i=0; i<NumberOfStockCodes; i++){
-    if((req.query.stockCode instanceof Array) && req.query.stockCode.length>i){
+    if(req.query.stockCode && req.query.stockCode[i] && req.query.stockCode.length>i){
       formModel.stockCodes.push(req.query.stockCode[i]);
-    }else if((req.query.stockCode instanceof String) && i==0){
+    }else if(req.query.stockCode && i==0){
       formModel.stockCodes.push(req.query.stockCode);
     }else{
       formModel.stockCodes.push('');
