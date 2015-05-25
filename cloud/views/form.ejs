@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            if('<%= shouldAutoRefresh%>'=='false'){
+                $('#autoRefreshSwitch').prop('checked', false);
+                $('#autoRefreshSwitch').flipswitch( "refresh" );
+                $('.divSlider').hide();
+            }else{
+                $('#autoRefreshSwitch').prop('checked', true);
+                $('#autoRefreshSwitch').flipswitch( "refresh" );
+                $('.divSlider').show();
+            }
+            $('#autoRefreshSwitch').change(function(e){
+//                console.log($('#autoRefreshSwitch'));
+                var isSwitchOn = $('#autoRefreshSwitch').prop('checked');
+                if(isSwitchOn)
+                    $('.divSlider').show();
+                else
+                    $('.divSlider').hide();
+            });
+        });
+    </script>
 </head>
 <body data-role="page">
     <div data-role="header"><h1>Pebble Settings</h1></div>
@@ -23,6 +44,14 @@
                 <tr><td>股票代码4：<input type="text" name="stockCode" value="<%= stockCodes[3] %>"></td></tr>
                 <tr><td>股票代码5：<input type="text" name="stockCode" value="<%= stockCodes[4] %>"></td></tr>
             </table>
+            <div data-role="fieldcontain" class="divSwitch">
+                <p for="autoRefreshSwitch">自动刷新开关（请注意：开启自动刷新后手表可能会消耗更多电量，如果不在WiFi环境下，手机也会消耗更多流量。）</p>
+                <input type="checkbox" name="shouldAutoRefresh" id="autoRefreshSwitch" data-role="flipswitch">
+            </div>
+            <div data-role="fieldcontain" class="divSlider">
+                <p for="intervalSlider">自动刷新间隔（单位：秒。请注意：间隔越短，耗电量和消耗的网络流量也会相应增加。）</p>
+                <input type="range" name="autoRefreshInterval" id="intervalSlider" value="<%= autoRefreshInterval%>" min="5" max="600" step="5" data-highlight="true">
+            </div>
             <input type="hidden" name="appName" value="<%= appName %>">
             <input type="hidden" name="deviceID" value="<%= deviceID %>">
             <input type="submit" value="保存">

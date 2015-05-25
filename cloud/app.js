@@ -14,42 +14,73 @@ app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
+//app.get('/form', function(req, res) {
+//  const NumberOfStockCodes = 5;
+//  var formModel = {
+//    appName: req.query.appName,
+//    deviceID: req.query.deviceID,
+//    stockCodes: null,
+//    shouldClose: false,
+//    settingsData: ""
+//  };
+//  var query = new AV.Query('Settings');
+//  query.equalTo('appName', formModel.appName);
+//  query.equalTo('deviceID', formModel.deviceID);
+//  query.find({
+//    success: function (results) {
+//      var record = null;
+//      if (results.length > 0) {//如果找到记录，则在原来基础上做更新操作。
+//        record = results[0];
+//        console.log('have found record');
+//        formModel.stockCodes = record.get("settingsData").stockCodes;
+//      }else{//如果没有找到记录，则做新建操作。
+//        console.log('no record found');
+//        var arr = new Array(NumberOfStockCodes);
+//        for(var i=0; i<NumberOfStockCodes; i++){
+//          arr[i]="";
+//        }
+//        formModel.stockCodes = arr;
+//      }
+//      console.dir(formModel);
+//      res.render('form', formModel);
+//    },
+//    error: function (err) {
+//      //处理调用失败
+//      console.log('Error when finding the record: '+error.message);
+//      //res.render('hello', {message: err.message});
+//    }
+//  });
+//});
+
 app.get('/form', function(req, res) {
   const NumberOfStockCodes = 5;
+  const MaxInterval = 600;
   var formModel = {
     appName: req.query.appName,
     deviceID: req.query.deviceID,
-    stockCodes: null,
-    shouldClose: false,
-    settingsData: ""
+    stockCodes: [],
+    settingsData: "",
+    shouldAutoRefresh: false,
+    autoRefreshInterval: MaxInterval,
+    shouldClose: false
   };
-  var query = new AV.Query('Settings');
-  query.equalTo('appName', formModel.appName);
-  query.equalTo('deviceID', formModel.deviceID);
-  query.find({
-    success: function (results) {
-      var record = null;
-      if (results.length > 0) {//如果找到记录，则在原来基础上做更新操作。
-        record = results[0];
-        console.log('have found record');
-        formModel.stockCodes = record.get("settingsData").stockCodes;
-      }else{//如果没有找到记录，则做新建操作。
-        console.log('no record found');
-        var arr = new Array(NumberOfStockCodes);
-        for(var i=0; i<NumberOfStockCodes; i++){
-          arr[i]="";
-        }
-        formModel.stockCodes = arr;
-      }
-      console.dir(formModel);
-      res.render('form', formModel);
-    },
-    error: function (err) {
-      //处理调用失败
-      console.log('Error when finding the record: '+error.message);
-      //res.render('hello', {message: err.message});
+  for(var i=0; i<NumberOfStockCodes; i++){
+    if(Array.prototype.isPrototypeOf(req.query.stockCode) && req.query.stockCode.length>i){
+      formModel.stockCodes.push(req.query.stockCode[i]);
+    }else if(String.prototype.isPrototypeOf(req.query.stockCode) && i==0){
+      formModel.stockCodes.push(req.query.stockCode);
+    }else{
+      formModel.stockCodes.push('');
     }
-  });
+  }
+  if(req.query.shouldAutoRefresh!==undefined){
+    formModel.shouldAutoRefresh = req.query.shouldAutoRefresh;
+  }
+  if(req.query.autoRefreshInterval!==undefined){
+    formModel.autoRefreshInterval = req.query.autoRefreshInterval;
+  }
+  console.dir(formModel);
+  res.render('form', formModel);
 });
 
 app.post('/form', function(req, res){
@@ -58,10 +89,14 @@ app.post('/form', function(req, res){
     appName: req.body.appName,
     deviceID: req.body.deviceID,
     stockCodes: req.body.stockCode,
-    shouldClose: false,
     settingsData: {
-      stockCodes:req.body.stockCode
-    }
+      stockCodes: req.body.stockCode,
+      shouldAutoRefresh: req.body.shouldAutoRefresh!==undefined,
+      autoRefreshInterval: req.body.autoRefreshInterval
+    },
+    shouldAutoRefresh: req.body.shouldAutoRefresh!==undefined,
+    autoRefreshInterval: req.body.autoRefreshInterval,
+    shouldClose: false
   };
   console.dir(formModel);
   console.log('query the recode for updating');
