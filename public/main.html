@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="formPage">
+<html>
 <head>
     <title>Pebble Settings</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.mobile.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/form-page.js"></script>
+    <script src="js/main.js"></script>
 </head>
-<body data-role="page" ng-controller="PageController">
+<body data-role="page">
 <div data-role="header"><h1>Pebble Settings</h1></div>
 <!-- defaultpanel  -->
 <div data-role="panel" id="defaultpanel" data-swipe-close="false" data-dismissible="false">
@@ -18,14 +17,14 @@
         <div class="ui-field-contain" style="width: 500px">
             <fieldset data-role="controlgroup" data-type="horizontal" id="marketControlGroup">
                 <legend>证交所：</legend>
-                <input type="radio" name="radio-choice-market" id="radio-choice-sh" value="sh" ng-model="editingObject.market" ng-checked="editingObject.market=='sh'">
+                <input type="radio" name="radio-choice-market" id="radio-choice-sh" value="sh">
                 <label for="radio-choice-sh">上海</label>
-                <input type="radio" name="radio-choice-market" id="radio-choice-sz" value="sz" ng-model="editingObject.market" ng-checked="editingObject.market=='sz'" ng-change="onRadioChanged()">
+                <input type="radio" name="radio-choice-market" id="radio-choice-sz" value="sz">
                 <label for="radio-choice-sz">深圳</label>
             </fieldset>
         </div>
         <div class="ui-field-contain">
-            <input type="text" id="text-input" ng-model="editingObject.code" title="" value="{{editingObject.code}}">
+            <input type="text" id="text-input" title="" value="{{editingObject.code}}">
             <div data-role="controlgroup" data-type="horizontal"
                  class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-arrow-u ui-btn-icon-left">上移</a>
@@ -33,17 +32,17 @@
             </div>
         </div>
         <div class="ui-field-contain">
-            <input type="button" value="保存" id="btnSave" ng-click="saveCode()">
-            <input type="button" value="删除" id="btnDelete" ng-click="deleteCode()">
-            <input type="button" value="取消" id="btnCancel" ng-click="closePanel()">
+            <input type="button" value="保存" id="btnSave">
+            <input type="button" value="删除" id="btnDelete">
+            <input type="button" value="取消" id="btnCancel">
         </div>
     </div>
     <!-- /content wrapper for padding -->
 </div>
 <!-- /defaultpanel -->
 <div role="main" class="ui-content">
-    <p>应用名称: {{appName}}</p>
-    <p id="deviceID">设备Token: {{deviceToken}}</p>
+    <p>App Name: <%= appName %></p>
+    <p id="deviceID">Device ID: <%= deviceID %></p>
     <p>股票/指数代码格式说明</p>
     <p>上海证券的股票代码前有“sh”，如“sh600000”；深圳证券的股票代码前有“sz”，如“sz000001”。</p>
     <p>上海证券的指数代码前有“s_sh”，上证指数的代码为“s_sh000001”；深圳证券的指数代码前有“s_sz”，比如深圳成指的代码为“s_sz399001”。</p>
@@ -51,18 +50,12 @@
         <h2>我的菜单</h2>
         <ul data-role="listview" id="myList">
             <li data-role="list-divider" id="list-divider-stock">股票代码</li>
-            <li ng-repeat="stockCode in stockArray" class="stock">
-                <a href="#" ng-click="openPanelToEdit(stockCode)">{{stockCode}}</a>
-            </li>
             <li id="cellAddStock">
-                <a href="#" class="ui-icon-plus" ng-click="openPanelToAdd('stock')">新增</a>
+                <a href="#" class="ui-icon-plus">新增</a>
             </li>
             <li data-role="list-divider" id="list-divider-index">指数代码</li>
-            <li ng-repeat="indexCode in indexArray" class="index">
-                <a href="#" ng-click="openPanelToEdit(indexCode)">{{indexCode}}</a>
-            </li>
             <li id="cellAddIndex">
-                <a href="#" class="ui-icon-plus" ng-click="openPanelToAdd('index')">新增</a>
+                <a href="#" class="ui-icon-plus">新增</a>
             </li>
         </ul>
         <div data-role="fieldcontain" class="divSwitch">
