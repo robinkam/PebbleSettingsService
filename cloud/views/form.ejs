@@ -18,6 +18,13 @@
                 $('#autoRefreshSwitch').flipswitch( "refresh" );
                 $('.divSlider').show();
             }
+            if('<%= shouldAutoWakeUp%>'=='false'){
+                $('#autoWakeUpSwitch').prop('checked', false);
+                $('#autoWakeUpSwitch').flipswitch( "refresh" );
+            }else{
+                $('#autoWakeUpSwitch').prop('checked', true);
+                $('#autoWakeUpSwitch').flipswitch( "refresh" );
+            }
             $('#autoRefreshSwitch').change(function(e){
 //                console.log($('#autoRefreshSwitch'));
                 var isSwitchOn = $('#autoRefreshSwitch').prop('checked');
@@ -43,7 +50,16 @@
                 <tr><td>股票代码3：<input type="text" name="stockCode" value="<%= stockCodes[2] %>"></td></tr>
                 <tr><td>股票代码4：<input type="text" name="stockCode" value="<%= stockCodes[3] %>"></td></tr>
                 <tr><td>股票代码5：<input type="text" name="stockCode" value="<%= stockCodes[4] %>"></td></tr>
+                <tr><td>股票代码6：<input type="text" name="stockCode" value="<%= stockCodes[5] %>"></td></tr>
+                <tr><td>股票代码7：<input type="text" name="stockCode" value="<%= stockCodes[6] %>"></td></tr>
+                <tr><td>股票代码8：<input type="text" name="stockCode" value="<%= stockCodes[7] %>"></td></tr>
+                <tr><td>股票代码9：<input type="text" name="stockCode" value="<%= stockCodes[8] %>"></td></tr>
+                <tr><td>股票代码10：<input type="text" name="stockCode" value="<%= stockCodes[9] %>"></td></tr>
             </table>
+            <div data-role="fieldcontain" class="divSwitch">
+                <p for="autoWakeUpSwitch">自动唤醒（在沪深两市开市的时间，即周一~周五，上午9:30，下午13:00，自动打开App）</p>
+                <input type="checkbox" name="shouldAutoWakeUp" id="autoWakeUpSwitch" data-role="flipswitch">
+            </div>
             <div data-role="fieldcontain" class="divSwitch">
                 <p for="autoRefreshSwitch">自动刷新开关（请注意：开启自动刷新后手表可能会消耗更多电量，如果不在WiFi环境下，手机也会消耗更多流量。）</p>
                 <input type="checkbox" name="shouldAutoRefresh" id="autoRefreshSwitch" data-role="flipswitch">

@@ -53,7 +53,7 @@ app.get('/hello', function(req, res) {
 //});
 
 app.get('/form', function(req, res) {
-  const NumberOfStockCodes = 5;
+  const NumberOfStockCodes = 10;
   const MaxInterval = 600;
   var formModel = {
     appName: req.query.appName,
@@ -62,6 +62,7 @@ app.get('/form', function(req, res) {
     settingsData: "",
     shouldAutoRefresh: false,
     autoRefreshInterval: MaxInterval,
+    shouldAutoWakeUp: false,
     shouldClose: false
   };
   for(var i=0; i<NumberOfStockCodes; i++){
@@ -79,6 +80,9 @@ app.get('/form', function(req, res) {
   if(req.query.autoRefreshInterval!==undefined){
     formModel.autoRefreshInterval = req.query.autoRefreshInterval;
   }
+  if(req.query.shouldAutoWakeUp!==undefined){
+    formModel.shouldAutoWakeUp = req.query.shouldAutoWakeUp;
+  }
   console.dir(formModel);
   res.render('form', formModel);
 });
@@ -92,10 +96,12 @@ app.post('/form', function(req, res){
     settingsData: {
       stockCodes: req.body.stockCode,
       shouldAutoRefresh: req.body.shouldAutoRefresh!==undefined,
-      autoRefreshInterval: req.body.autoRefreshInterval
+      autoRefreshInterval: req.body.autoRefreshInterval,
+      shouldAutoWakeUp: req.body.shouldAutoWakeUp!==undefined
     },
     shouldAutoRefresh: req.body.shouldAutoRefresh!==undefined,
     autoRefreshInterval: req.body.autoRefreshInterval,
+    shouldAutoWakeUp: req.body.shouldAutoWakeUp!==undefined,
     shouldClose: false
   };
   console.dir(formModel);
