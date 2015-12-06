@@ -43,7 +43,7 @@
         <!--<p>Device ID: <%= deviceID %></p>-->
         <p>说明: 上海证券的股票代码前加“sh”，如“sh600000”；深圳证券的股票代码前加“sz”，如“sz000001”。</p>
         <p>如果是指数，请在代码前加上“s_”，比如上证指数的代码为“s_sh000001”，深圳成指的代码为“s_sz399001”</p>
-        <form action="form" method="post">
+        <form name="mainForm" action="form" method="post">
             <table>
                 <tr><td>股票代码1：<input type="text" name="stockCode" value="<%= stockCodes[0] %>"></td></tr>
                 <tr><td>股票代码2：<input type="text" name="stockCode" value="<%= stockCodes[1] %>"></td></tr>
@@ -70,7 +70,7 @@
             </div>
             <input type="hidden" name="appName" value="<%= appName %>">
             <input type="hidden" name="deviceID" value="<%= deviceID %>">
-            <input type="submit" value="保存">
+            <input type="submit" value="保存" onclick="mainForm.submit()">
         </form>
         <script>
             if("<%= shouldClose %>"=="true") {
