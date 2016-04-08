@@ -63,7 +63,8 @@ app.get('/form', function(req, res) {
     shouldAutoRefresh: false,
     autoRefreshInterval: MaxInterval,
     shouldAutoWakeUp: false,
-    shouldClose: false
+    shouldClose: false,
+    returnTo: 'pebblejs://close#'
   };
   for(var i=0; i<NumberOfStockCodes; i++){
     if(req.query.stockCode && req.query.stockCode[i] && req.query.stockCode.length>i){
@@ -82,6 +83,9 @@ app.get('/form', function(req, res) {
   }
   if(req.query.shouldAutoWakeUp!==undefined){
     formModel.shouldAutoWakeUp = req.query.shouldAutoWakeUp;
+  }
+  if(req.query.return_to){
+    formModel.returnTo = req.query.return_to;
   }
   console.dir(formModel);
   res.render('form', formModel);
@@ -102,7 +106,8 @@ app.post('/form', function(req, res){
     shouldAutoRefresh: req.body.shouldAutoRefresh!==undefined,
     autoRefreshInterval: req.body.autoRefreshInterval,
     shouldAutoWakeUp: req.body.shouldAutoWakeUp!==undefined,
-    shouldClose: false
+    shouldClose: false,
+    returnTo: 'pebblejs://close#'
   };
   console.dir(formModel);
   console.log('query the recode for updating');
@@ -124,6 +129,8 @@ app.post('/form', function(req, res){
       record.set("settingsData", formModel.settingsData);
       record.save().then(function() {
         formModel.shouldClose = true;
+        if(req.body.returnTo)
+          formModel.returnTo = req.body.returnTo;
         formModel.settingsData = encodeURIComponent(JSON.stringify(formModel.settingsData));
         console.log('record saved');
         console.dir(formModel);

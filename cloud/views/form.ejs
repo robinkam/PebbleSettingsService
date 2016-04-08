@@ -70,13 +70,14 @@
             </div>
             <input type="hidden" name="appName" value="<%= appName %>">
             <input type="hidden" name="deviceID" value="<%= deviceID %>">
+            <input type="hidden" name="returnTo" value="<%= returnTo %>">
             <input type="submit" value="保存" onclick="mainForm.submit()">
         </form>
         <script>
             if("<%= shouldClose %>"=="true") {
                 document.write('prepare to close the settings page...');
                 //document.write('<p>pebblejs://close#'+'<%= settingsData %></p>');
-                document.location = 'pebblejs://close#' + '<%= settingsData %>';
+                document.location = '<%= returnTo %>' + '<%= settingsData %>';
             }
         </script>
         <br><br>
