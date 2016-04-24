@@ -66,6 +66,9 @@ app.get('/form', function(req, res) {
     shouldClose: false,
     returnTo: 'pebblejs://close#'
   };
+  if(!req.query.stockCode){
+    formModel.stockCodes = ['sh600000','sz000001','s_sh000001','s_sz399001'];
+  }
   for(var i=0; i<NumberOfStockCodes; i++){
     if(req.query.stockCode && req.query.stockCode[i] && req.query.stockCode.length>i){
       formModel.stockCodes.push(req.query.stockCode[i]);
@@ -87,6 +90,7 @@ app.get('/form', function(req, res) {
   if(req.query.return_to){
     formModel.returnTo = req.query.return_to;
   }
+  console.log('render with formModel:');
   console.dir(formModel);
   res.render('form', formModel);
 });
@@ -109,6 +113,7 @@ app.post('/form', function(req, res){
     shouldClose: false,
     returnTo: 'pebblejs://close#'
   };
+  console.log('post formModel:');
   console.dir(formModel);
   console.log('query the recode for updating');
   var query = new AV.Query('Settings');
